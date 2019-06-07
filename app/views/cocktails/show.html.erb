@@ -1,15 +1,31 @@
 <!-- show.html.erb -->
 <div class="container">
+  <%= link_to "Back to all cocktails", root_path %>
+
   <div class="row">
     <div class="col-xs-12 col-sm-10 col-sm-offset-1">
       <h1><%= @cocktail.name %></h1>
       <table class="table table-bordered">
-        <tbody>
           <tr>
             <th scope="row">Ingredients</th>
+            <th scope="row">Doses</th>
           </tr>
-        </tbody>
+            <% @cocktail.doses.each do |dose| %>
+            <tr>
+              <td><%= dose.ingredient.name %></td>
+                <td><%= dose.description %></td>
+                <td>
+                <%= link_to dose_path(dose), method: :delete, data: { confirm: "Are you sure?" } do %>
+                  <i class="fa fa-trash destroy_dose"></i>
+                <% end %>
+              </td>
+            </tr>
+          <% end %>
+
       </table>
     </div>
   </div>
+  <%= link_to 'Add Ingredients', new_cocktail_dose_path(@cocktail) %>
 </div>
+
+
